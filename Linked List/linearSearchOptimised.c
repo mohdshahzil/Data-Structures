@@ -28,16 +28,29 @@ void create(int A[], int n)
 
 struct Node *Search(struct Node *p, int key)
 {
+    struct Node *q = NULL;
     while (p != NULL)
     {
         if (key == p->data)
         {
+            q->next = p->next;
+            p->next = first;
+            first = p;
             return p;
         }
-
+        q = p;
         p = p->next;
     }
     return NULL;
+}
+
+void Display(struct Node *p)
+{
+    while (p != NULL)
+    {
+        printf("%d\n", p->data);
+        p = p->next;
+    }
 }
 
 int main()
@@ -45,14 +58,17 @@ int main()
     int A[] = {3, 5, 7, 10, 15};
     create(A, 5);
     struct Node *temp;
-    temp = Search(first, 100);
+    temp = Search(first, 10);
     if (temp)
     {
-        printf("Key is found %d", temp->data);
+        printf("Key found\n");
     }
     else
     {
-        printf("Key is not found");
+        printf("Key not found\n");
     }
+
+    Display(first);
+
     return 0;
 }
